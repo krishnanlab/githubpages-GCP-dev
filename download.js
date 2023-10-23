@@ -49,6 +49,14 @@ function httpGetAsync(theUrl, callback)
 
 async function fetchAsync (url) {
   let response = await fetch(url);
-  let data = await response.json();
+  let data = await response.text();
   return data;
+}
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
 }
