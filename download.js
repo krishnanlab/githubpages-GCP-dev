@@ -36,27 +36,17 @@
 //
 // streamFileDownload().catch(console.error);
 
-function httpGetAsync(theUrl, callback)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.send(null);
-}
-
-async function fetchAsync (url) {
+async function request(url) {
   let response = await fetch(url);
   let data = await response.text();
   return data;
 }
 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
+function download(content, filename) {
+  const link = document.createElement("a");
+  const file = new Blob([content], {type: "text/plain"});
+  link.href = URL.createObjectURL(file);
+  link.download = filename + ".txt";
+  link.click();
+  URL.revokeObjectURL(link.href);
 }
